@@ -54,7 +54,14 @@ Achieved ~95% accuracy on the test set.
 
 - Confusion matrix and classification report  
 - Random visual samples of correct and incorrect predictions  
-- Grad-CAM to visualize model attention  
+- Grad-CAM to visualize model attention
+
+<img width="539" height="455" alt="image" src="https://github.com/user-attachments/assets/8d71e510-ce97-4635-b62c-54e47719dd7b" />
+
+ <img width="1317" height="985" alt="image" src="https://github.com/user-attachments/assets/2ff7381c-8bd3-499d-baea-c373d47cff90" />
+
+<img width="990" height="355" alt="image" src="https://github.com/user-attachments/assets/29959fcb-be80-4f13-a9cd-384a0b4366ec" />
+
 
 ## How to Run
 
