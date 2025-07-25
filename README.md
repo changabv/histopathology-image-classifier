@@ -1,43 +1,76 @@
-# Breast Cancer Histopathology Classifier (400X)
+# Histopathology Image Classifier (BreaKHis 400X)
 
-This project uses **transfer learning** with a pre-trained ResNet18 model to classify breast cancer **histopathology images (400X magnification)** into **benign** or **malignant** categories.
+This project uses transfer learning to classify H&E-stained breast tissue images as **benign** or **malignant**. It’s built with PyTorch and uses the [BreaKHis 400X dataset](https://www.kaggle.com/datasets/forderation/breakhis-400x).
 
----
+## Overview
 
-## 📊 Overview
+- **Model**: ResNet18 with a custom classification head  
+- **Task**: Binary image classification (benign vs malignant)  
+- **Dataset**: BreaKHis 400X (breast cancer histopathology)  
+- **Tools**: PyTorch, torchvision, sklearn, matplotlib  
 
-- **Model**: ResNet18 (pretrained on ImageNet)
-- **Dataset**: [BreaKHis 400X subset](https://www.kaggle.com/datasets/ambarish/breakhis) — H&E stained breast tumor images
-- **Task**: Binary classification (benign vs. malignant)
-- **Accuracy Achieved**: ~95%
-- **Libraries Used**: PyTorch, torchvision, matplotlib, scikit-learn
+## Dataset
 
----
+- Source: [Kaggle - BreaKHis 400X](https://www.kaggle.com/datasets/forderation/breakhis-400x)  
+- Format: Pre-split into `train/` and `test/` folders by class  
+- Total images used: ~1,700  
 
-## 🗂️ Dataset Structure
+**Classes**:
+- `benign`
+- `malignant`
 
-The dataset should be organized as follows:
-breakhis_data/
-└── BreaKHis 400X/
-├── train/
-│ ├── benign/
-│ └── malignant/
-└── test/
-├── benign/
-└── malignant/
+## Model Architecture
 
-
-Each folder contains PNG slide images at 400X magnification.
-
----
-
-## 🧠 Model Details
-
-We use transfer learning on **ResNet18**, replacing the final fully connected layer with:
+We use a pretrained ResNet18 from `torchvision.models`, replacing the final fully-connected layer with:
 
 ```python
 nn.Sequential(
     nn.Dropout(0.5),
     nn.Linear(model.fc.in_features, 2)
 )
+```
 
+## Training Details
+
+- **Epochs**: 5 (can be increased)  
+- **Optimizer**: Adam (lr=1e-4)  
+- **Loss Function**: CrossEntropyLoss  
+- **Hardware**: CPU / GPU-compatible  
+
+## Performance
+
+Achieved ~95% accuracy on the test set.
+
+```
+              precision    recall  f1-score   support
+
+      benign       0.90      0.95      0.93       176
+   malignant       0.98      0.95      0.96       369
+
+    accuracy                           0.95       545
+```
+
+## Visualization
+
+- Confusion matrix and classification report  
+- Random visual samples of correct and incorrect predictions  
+- Grad-CAM to visualize model attention  
+
+## How to Run
+
+1. Clone the repo and upload the `BreaKHis 400X` dataset.  
+2. Place the dataset in `breakhis_data/BreaKHis 400X/`  
+3. Run the training script (e.g., in Google Colab or Jupyter).  
+4. Outputs:
+    - Performance metrics
+    - Confusion matrix
+    - Sample predictions
+    - Grad-CAM visualizations
+
+## Citation
+
+> Forderation. *BreaKHis 400X*. Kaggle, 2021. https://www.kaggle.com/datasets/forderation/breakhis-400x
+
+## Author
+
+Built by Yudam Chang as a portfolio project in cancer image classification using deep learning.
